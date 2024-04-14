@@ -9,6 +9,19 @@ void printDivider(void)
     std::cout << "***************************************************************************\n";
 }
 
+bool deathCheck(int currentHealth)
+{
+    if (currentHealth <= 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
 using namespace std;
 
 int main()
@@ -38,7 +51,7 @@ int main()
         cin >> decisions;
         cout << endl;
 
-        // Determine action
+        // Determine player action
         switch (decisions) 
         {
             // Perform light attack
@@ -51,11 +64,10 @@ int main()
                     int l_att = 7 + rand() % 13;                  // Player damage output 7 - 19
                     enemy_health = enemy_health - l_att;
                     cout << "The attack was a success!  You dealt " << l_att << " damage.\n";
-                    cout << "Enemy has " << enemy_health << " left, it is now the enemy's turn.\n";
                 }
                 else 
                 {
-                    cout << "Your attack missed, it is now the enemy's turn.\n"; // 10% chance to miss
+                    cout << "Your attack missed.\n"; // 10% chance to miss
                 }
                 break; 
             }
@@ -69,11 +81,10 @@ int main()
                     int h_att = 30 + rand() % 10;           // Player damage output 30 - 39
                     enemy_health = enemy_health - h_att;
                     cout << "The attack was a success!  You dealt " << h_att << " damage.\n";
-                    cout << "Enemy has " << enemy_health << " left, it is now the enemy's turn.\n";
                 }
                 else 
                 {
-                    cout << "Your attack missed, it is now the enemy's turn.\n";
+                    cout << "Your attack missed.\n";
                 }
                 break; 
             }
@@ -120,10 +131,18 @@ int main()
                 return 0;
             }
         }
+        // If enemy is dead, end battle
+        if (deathCheck(enemy_health))
+        {
+            break;
+        }
+        else
+        {
+            cout << "Enemy has " << enemy_health << " hp left, it is now the enemy's turn.\n";
+        }
 
         // Start enemy turn
         int enemy_turn = 1 + rand() % 3;                // Get number 1, 2, or 3. Used to determine enemy action
-        cout << "\n\nIt is now the enemy's turn\n\n";
         switch (enemy_turn) 
         {
             // Enemy light attack
@@ -135,7 +154,7 @@ int main()
                     int l_att = 7 + rand() % 13;    // Enemy attack 7 - 19 damage
                     health = health - l_att;
                     cout << "The enemy attacked! They dealt " << l_att << " damage.\n";
-                    cout << "You now have " << health << " left, you might want to heal next turn.\n";
+                    cout << "You now have " << health << " hp left, you might want to heal next turn.\n";
                 }
                 else 
                 {
@@ -168,6 +187,11 @@ int main()
                 cout << "The enemy is just standing there... menacingly!\n";
                 break; 
             }
+        }
+        // If player is dead, end battle
+        if (deathCheck(health))
+        {
+            break;
         }
     } 
     while (health >= 0 && enemy_health >= 0);  // Continue until player or enemy health is negative or 0
