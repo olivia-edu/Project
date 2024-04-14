@@ -226,6 +226,7 @@ int main()
     int chance1;                                           // used to store chance to hit for player and enemy
     int health = 100;                                      // player health
     int level = 1;                                         // used to store current player level
+    int playerArmor, enemyArmor, finalDamage;              // used in calculation of damage values
 
     // Begin battle
     bool gameOver = false;                                 // used for outer while loop condition to end the game
@@ -234,6 +235,7 @@ int main()
         int levelMod = (level - 1) * 2;                        // used to scale game according to level
         int enemy_health = 70 + rand() % 45;                   // determines the enemies health for the start of the encounter (70 - 114)
         enemy_health += levelMod;                              // scale enemy health
+        playerArmor = enemyArmor = 10;                         // set player and enemy armor values
         cout << "LEVEL: " << level << "\t\t\t";
         cout << "You encountered an enemy" << endl;
  
@@ -241,8 +243,8 @@ int main()
         do
         {
             // Prompt user for action
-            cout << "\nEnemy has " << enemy_health << " hp.\t\tPlayer has " << health << " hp.\n\n";
-            cout << "Choose 1 for light attack\tChoose 2 for heavy attack\n\nChoose 3 to heal\t\tChoose any other number to rage quit lol\n\n";
+            cout << "\nEnemy: " << enemy_health << " hp    " << enemyArmor << " armor\tPlayer: " << health << " hp    " << playerArmor << " armor\n\n";
+            cout << "Choose 1 for light attack\tChoose 2 for heavy attack\n\nChoose 3 to heal\t\tChoose 4 to throw grenade\n\nChoose any other number to rage quit lol\n\n";
             printDivider();
             cout << "Your action: ";
             cin >> decisions;
@@ -252,83 +254,105 @@ int main()
             switch (decisions)
             {
                 // Perform light attack
-            case 1:
-            {
-                cout << "You have chosen light attack\n" << endl;
-                int chance1 = 1 + rand() % 10;                    // Get number between 1 and 10 inclusive 
-                if (chance1 <= 9)                                 // 90% chance to hit
+                case 1:
                 {
-                    int l_att = 7 + rand() % 13;                  // Player damage output 7 - 19
-                    l_att += levelMod;                            // Scale damage
-                    enemy_health = enemy_health - l_att;
-                    cout << "The attack was a success!  You dealt " << l_att << " damage.\n";
-                }
-                else
-                {
-                    cout << "Your attack missed.\n"; // 10% chance to miss
-                }
-                break;
-            }
-            // Perform heavy attack
-            case 2:
-            {
-                cout << "You have chosen heavy attack.\n";
-                int chance1 = rand() % 4;                   // Get number between 0 and 3
-                if (chance1 <= 1)                           // 50% chance to hit
-                {
-                    int h_att = 30 + rand() % 10;           // Player damage output 30 - 39
-                    h_att += levelMod * 2;                  // Scale damage, multiplied by 2 again for heavy scaling
-                    enemy_health = enemy_health - h_att;
-                    cout << "The attack was a success!  You dealt " << h_att << " damage.\n";
-                }
-                else
-                {
-                    cout << "Your attack missed.\n";
-                }
-                break;
-            }
-            // Heal player
-            case 3:
-            {
-                cout << "You have chosen to heal.\n";
-                if (health != 100)
-                {
-                    int chance1 = 1 + rand() % 2;  // Get number 1 or 2
-                    if (chance1 == 2)              // 50% chance
+                    cout << "You have chosen light attack\n" << endl;
+                    int chance1 = 1 + rand() % 10;                    // Get number between 1 and 10 inclusive 
+                    if (chance1 <= 9)                                 // 90% chance to hit
                     {
-                        int heal = 15 + rand() % 5;  // Heal for 15 to 19
-                        health = health + heal;
-                        cout << "You healed " << heal << " health.\n";
-                        cout << "You have " << health << " hp left.\n";
+                        int l_att = 10 + rand() % 13;                 // Player damage output 10 - 22
+                        l_att += levelMod;                            // Scale damage
+                        finalDamage = l_att - enemyArmor;             // Apply Armor to calculation
+                        enemy_health -= finalDamage;                  // Subtract final damage from enemy health
+                        cout << "The attack was a success!  You dealt " << finalDamage << " damage.\n";
                     }
                     else
                     {
-                        int heal = rand() % 14;  // Heal for 0 to 13
-                        health = health + heal;
-                        cout << "You healed " << heal << " health.\n";
-                        cout << "You have " << health << " hp left.\n";
+                        cout << "Your attack missed.\n"; // 10% chance to miss
                     }
+                    break;
                 }
-                // Display if player is at full health
-                else
+                // Perform heavy attack
+                case 2:
                 {
-                    cout << "You just wasted your turn, better luck next time.\n";
+                    cout << "You have chosen heavy attack.\n";
+                    int chance1 = rand() % 4;                   // Get number between 0 and 3
+                    if (chance1 <= 1)                           // 50% chance to hit
+                    {
+                        int h_att = 30 + rand() % 10;           // Player damage output 30 - 39
+                        h_att += levelMod * 2;                  // Scale damage, multiplied by 2 again for heavy scaling
+                        enemyArmor -= 5;                        // Reduce enemy armor
+                        finalDamage = h_att - enemyArmor;       // Apply Armor to calculation
+                        enemy_health -=  finalDamage;
+                        cout << "The attack was a success!  You dealt " << finalDamage << " damage.\n";
+                    }
+                    else
+                    {
+                        cout << "Your attack missed.\n";
+                    }
+                    break;
+                }
+                // Heal player
+                case 3:
+                {
+                    cout << "You have chosen to heal.\n";
+                    if (health != 100)
+                    {
+                        int chance1 = 1 + rand() % 2;  // Get number 1 or 2
+                        if (chance1 == 2)              // 50% chance
+                        {
+                            int heal = 15 + rand() % 5;  // Heal for 15 to 19
+                            health += heal;
+                            cout << "You healed " << heal << " health.\n";
+                            cout << "You have " << health << " hp left.\n";
+                        }
+                        else
+                        {
+                            int heal = rand() % 14;  // Heal for 0 to 13
+                            health += heal;
+                            cout << "You healed " << heal << " health.\n";
+                            cout << "You have " << health << " hp left.\n";
+                        }
+                    }
+                    // Display if player is at full health
+                    else
+                    {
+                        cout << "You just wasted your turn, better luck next time.\n";
+                    }
+
+                    // Show player health after action
+                    if (health > 100) 
+                    {
+                        health = 100;               // Update player health so never greater than 100
+                        cout << "\n\n\nYou have " << health << " left\n\n\n";
+                    }
+                    break;
+                }
+                // Throw grenade
+                case 4:
+                {
+                    cout << "You have chosen throw grenade.\n";
+                    int chance1 = rand() % 4;                   // Get number between 0 and 3
+                    if (chance1 <= 1)                           // 50% chance to hit
+                    {
+                        finalDamage = 60 + levelMod * 3;  // set damage and scaling high
+                        enemyArmor = 0;                   // remove enemy armor
+                        enemy_health -= finalDamage;
+                        cout << "The attack was a success!  You dealt " << finalDamage << " damage.\n";
+                    }
+                    else
+                    {
+                        cout << "You missed.\n";
+                    }
+                    break;
                 }
 
-                // Show player health after action
-                if (health > 100) {
-                    health = 100;               // Update player health so never greater than 100
-                    cout << "\n\n\nYou have " << health << " left\n\n\n";
+                // Display if player enters a number besides 1, 2, or 3
+                default:
+                {
+                    cout << "Rage quitter lol, hope the game was worth it.\n\n";
+                    return 0;
                 }
-                break;
-            }
-
-            // Display if player enters a number besides 1, 2, or 3
-            default:
-            {
-                cout << "Rage quitter lol, hope the game was worth it.\n\n";
-                return 0;
-            }
             }
             // If enemy is dead, end battle
             if (deathCheck(enemy_health))
@@ -348,48 +372,48 @@ int main()
             switch (enemy_turn)
             {
                 // Enemy light attack
-            case 1:
-            {
-                int chance1 = rand() % 2;  // Get number 0 or 1
-                if (chance1 == 1)          // 50% chance to hit
+                case 1:
                 {
-                    int l_att = 7 + rand() % 13;    // Enemy attack 7 - 19 damage
-                    l_att += levelMod;
-                    health = health - l_att;
-                    cout << "The enemy attacked! They dealt " << l_att << " damage.\n";
+                    int chance1 = rand() % 2;  // Get number 0 or 1
+                    if (chance1 == 1)          // 50% chance to hit
+                    {
+                        int l_att = 7 + rand() % 13;    // Enemy attack 7 - 19 damage
+                        l_att += levelMod;
+                        health -= l_att;
+                        cout << "The enemy attacked! They dealt " << l_att << " damage.\n";
 
+                    }
+                    else
+                    {
+                        cout << "Their attack missed, it is now your turn.\n";
+                    }
+                    break;
                 }
-                else
-                {
-                    cout << "Their attack missed, it is now your turn.\n";
-                }
-                break;
-            }
 
-            // Enemy heavy attack
-            case 2:
-            {
-                int chance1 = rand() % 4;     // Get number between 0 and 3
-                if (chance1 == 0)             // Chance to hit is 25%
+                // Enemy heavy attack
+                case 2:
                 {
-                    int h_att = 35 + rand() % 5;    // Enemy attack 35 - 39 damage
-                    h_att += levelMod * 2;          // Scale damage, times 2 for heavy scaling
-                    health = health - h_att;
-                    cout << "They actually hit you with a heavy attack and dealt " << h_att << " damage.\n";
+                    int chance1 = rand() % 4;     // Get number between 0 and 3
+                    if (chance1 == 0)             // Chance to hit is 25%
+                    {
+                        int h_att = 35 + rand() % 5;    // Enemy attack 35 - 39 damage
+                        h_att += levelMod * 2;          // Scale damage, times 2 for heavy scaling
+                        health -= h_att;
+                        cout << "They actually hit you with a heavy attack and dealt " << h_att << " damage.\n";
+                    }
+                    else
+                    {
+                        cout << "The dumbass missed a heavy attack, lets show them how its done.\n";
+                    }
+                    break;
                 }
-                else
-                {
-                    cout << "The dumbass missed a heavy attack, lets show them how its done.\n";
-                }
-                break;
-            }
 
-            // Chance for enemy to waste turn
-            case 3:
-            {
-                cout << "The enemy is just standing there... menacingly!\n";
-                break;
-            }
+                // Chance for enemy to waste turn
+                case 3:
+                {
+                    cout << "The enemy is just standing there... menacingly!\n";
+                    break;
+                }
             }
             // If player is dead, end battle
             if (deathCheck(health))
