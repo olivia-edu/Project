@@ -2,6 +2,8 @@
 #include <ctime>
 #include <string>
 
+using namespace std;
+
 // Used to format ASCII art
 void printCharacters(int num, char character) 
 {
