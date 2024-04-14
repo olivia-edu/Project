@@ -36,7 +36,7 @@ int main()
     // Battle variables
     int decisions, l_att, h_att, block, heal, enemy_turn;
     int chance1;                                           // used to store chance to hit for player and enemy
-    int health = 100;
+    int health = 100; 
     int enemy_health = 70 + rand() % 45;                   // determines the enemies health for the start of the encounter (70 - 114)
     int health1 = 100;
 
@@ -44,7 +44,7 @@ int main()
     cout << "You encountered an enemy" << endl;
     do {
         // Prompt user for action
-        cout << "\nEnemy has " << enemy_health << " hp left.\n\n";
+        cout << "\nEnemy has " << enemy_health << " hp.\t\tPlayer has " << health << " hp.\n\n";
         cout << "Choose 1 for light attack\tChoose 2 for heavy attack\n\nChoose 3 to heal\t\tChoose any other number to rage quit lol\n\n";
         printDivider();
         cout << "Your action: ";
@@ -100,14 +100,14 @@ int main()
                         int heal = 15 + rand() % 5;  // Heal for 15 to 19
                         health = health + heal;
                         cout << "You healed " << heal << " health.\n";
-                        cout << "\n\n\nYou have " << health << " left\n\n\n";
+                        cout << "You have " << health << " hp left.\n";
                     }
                     else 
                     {
                         int heal = rand() % 14;  // Heal for 0 to 13
                         health = health + heal;
                         cout << "You healed " << heal << " health.\n";
-                        cout << "\n\n\nYou have " << health << " left\n\n\n";
+                        cout << "You have " << health << " hp left.\n";
                     }
                 }
                 // Display if player is at full health
@@ -154,11 +154,11 @@ int main()
                     int l_att = 7 + rand() % 13;    // Enemy attack 7 - 19 damage
                     health = health - l_att;
                     cout << "The enemy attacked! They dealt " << l_att << " damage.\n";
-                    cout << "You now have " << health << " hp left, you might want to heal next turn.\n";
+
                 }
                 else 
                 {
-                    cout << "Their attack missed, it is now the your turn.\n";
+                    cout << "Their attack missed, it is now your turn.\n";
                 }
                 break; 
             }
@@ -172,7 +172,6 @@ int main()
                     int h_att = 35 + rand() % 5;    // Enemy attack 35 - 39 damage
                     health = health - h_att;
                     cout << "They actually hit you with a heavy attack and dealt " << h_att << " damage.\n";
-                    cout << "You now have " << health << " left, it is now the your turn.\n";
                 }
                 else 
                 {
@@ -192,6 +191,10 @@ int main()
         if (deathCheck(health))
         {
             break;
+        }
+        else
+        {
+            cout << "You now have " << health << " hp left, it is now your turn.\n";
         }
     } 
     while (health >= 0 && enemy_health >= 0);  // Continue until player or enemy health is negative or 0
