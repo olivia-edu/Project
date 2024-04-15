@@ -403,6 +403,7 @@ int main()
                 cout << "\nThe enemy has 0 health remaining. They have been defeated.\n\n";
                 printDivider();
                 cout << endl;
+                level++;                // increment level if enemy defeated, maybe add line resetting player health to 100
                 break;
             }
             else
@@ -474,7 +475,6 @@ int main()
             }
         } while (health > 0 && enemy_health > 0);  // Continue until player or enemy health is negative or 0
 
-        level++;                // increment level if enemy defeated, maybe add line resetting player health to 100
 
         // 50% chance to find a grenade after battle, if grenadeCount is not at max value, and player is not defeated
         chance1 = rand() % 2;
@@ -498,30 +498,22 @@ int main()
     printDivider();
     
     // Determine player ending
-    if ((level -1) == 0)
+   
+    if ((level -1) >= 1 && (level - 1) < 6)
     {
-        cout << "\nYou failed to protect any ships. No Gertrans survived the orbital onslaught. The misdeeds of the Emperor die with your planet.\n(Press Enter to Continue.)";
-        while (cin.get() != '\n') {}
-        
-        cout << endl;
-        printBanner(game_over);
-    }
-
-    else if ((level -2) >= 1 && (level - 2) < 4)
-    {
-        cout << "\nYou protected " << (level -2) << " ships! " << numCommaFormat((50000 * (level -2))) << " Gertrans survived the planetary onslaught.\nBut the guile of the Emperor is not to be underestimated, you did not save enough ships to make a difference.\n(Press Enter to Continue.)";  // put_money() from <iomanip> adds commas to large numbers 
+        cout << "\nYou protected " << (level -1) << " ships! " << numCommaFormat((50000 * (level -1))) << " Gertrans survived the planetary onslaught.\nBut the guile of the Emperor is not to be underestimated, you did not save enough ships to make a difference.\n(Press Enter to Continue.)";  // put_money() from <iomanip> adds commas to large numbers 
         while (cin.get() != '\n') {}
 
-        cout << "\n\nAfter the destruction of the planet, the Emperor's dreaded SHOCK TROOPERS hunted down and destroyed all " << (level -2) << " of the refugee vessels.\nOnly rumors remain of the Emperor's misdeeds on Gertra-376....\n";
+        cout << "\n\nAfter the destruction of the planet, the Emperor's dreaded SHOCK TROOPERS hunted down and destroyed all " << (level -1) << " of the refugee vessels.\nOnly rumors remain of the Emperor's misdeeds on Gertra-376....\n";
         printBanner(game_over);
     }
 
     else 
     {
-        cout << "\nYou protected " << (level - 2) << " ships! " << numCommaFormat(50000 * (level - 2)) << " Gertrans survived the galactic bombardment.\n(Press Enter to Continue.)";
+        cout << "\nYou protected " << (level - 1) << " ships! " << numCommaFormat(50000 * (level - 1)) << " Gertrans survived the galactic bombardment.\n(Press Enter to Continue.)";
         while (cin.get() != '\n') {}
 
-        cout << "\n\nNot only did you protect " << (level - 2) << " ships, but you saved so many refugees, that the Emperor could not stamp out the fires of rebellion stoked by his malice and greed.\nThe whole Galaxy knows what happened here today, the royal family of Gertra-376 embarks on a campaign to end the tyranny of the Galactic Empire\n(Press Enter to Continue.)";
+        cout << "\n\nNot only did you protect " << (level - 1) << " ships, but you saved so many refugees, that the Emperor could not stamp out the fires of rebellion stoked by his malice and greed.\nThe whole Galaxy knows what happened here today, the royal family of Gertra-376 embarks on a campaign to end the tyranny of the Galactic Empire\n(Press Enter to Continue.)";
         while (cin.get() != '\n') {}
 
         cout << "\n\nAfter 10 long zorpthons, a Gertran Emperor ascends to the throne. 5 more zorpthons pass, and an heir is produced. Born with bright eyes and great promise. \nThe Emperor bestows the baby with the name of hero. Their name?\n(Press Enter to Reveal the Baby's Name.)";
@@ -529,6 +521,6 @@ int main()
 
         printBanner(name);
     }
-
+    level--; 
     return 0;
 }
