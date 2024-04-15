@@ -112,7 +112,7 @@ void Intro(const string& title, const string& subtitle, string& name)
     cin.ignore();
   }
   
-  cout << "\nAn orbital lazer BLASTS down upon the citizenry of Gertra-376. Explosions BOOM in the distance. They increase in both rate and decibal,\n as the bombardment narrows in on its primary target.\n(Press Enter to Continue.)";
+  cout << "\nAn orbital lazer BLASTS down upon the citizenry of Gertra-376. Explosions BOOM in the distance. They increase in both rate and decibel,\n as the bombardment narrows in on its primary target.\n(Press Enter to Continue.)";
   while (cin.get() != '\n') {
     cin.ignore();
   } 
@@ -170,28 +170,29 @@ int main()
     srand(time(nullptr)); // Seed the random number generator with the current time
 
     // Opening variables
-    string name, working_title, working_subtitle, enter_title;
-    enter_title = "(Press Enter to Continue)";
+    string name, working_title, working_subtitle, enter_title, game_over;
+    enter_title = "Press Enter to Continue";
     working_title = "EMPEROR's FURY:";
     working_subtitle = "DEFENDING GERTRA-376";
+    game_over = "GAME OVER";
 
     // Opening function call
     Intro(working_title, working_subtitle, name);
 
     // Describe dungeon to user
-    cout << "\nThe recent shockwave has disoriented and disarmed You. You dust yourself off and prepare for combat. \n(Press Enter to Continue.)";
+    cout << "\nThe recent shockwave has disoriented and disarmed you. You dust yourself off and prepare for combat. \n(Press Enter to Continue.)";
     while (cin.get() != '\n') {}
     
     cout << "\nCLANGS and SHOUTS echo down the hallway. The Emperor's SHOCK TROOPERS have breached the first door of the Planetary Defence Bunker. \n(Press Enter to Continue.)";
     while (cin.get() != '\n') {}
     
-    cout << "\nYou search the bodies of your comrades for a functional weapon. YOU find a blaster cannon and 2 grenade(s). \n(Press Enter to Continue.)";
+    cout << "\nYou search the bodies of your comrades for a functional weapon. You find a blaster cannon and 2 grenade(s). \n(Press Enter to Continue.)";
     while (cin.get() != '\n') {}
 
     cout << "\nNONE of the ships have reached Hyperspace. YOU MUST HOLD OUT as LONG as YOU CAN!!\n(Press Enter to Continue.)";
     while (cin.get() != '\n') {}
     
-    cout << "\nThe soft hum of a PROTON-BLASTER indicates your enemy's approach. PREPARE YOURSELF, the 1st round has begun! \n(Press Enter to Continue.)";
+    cout << "\nThe soft hum of a PROTON-BLASTER indicates your enemy's approach. PREPARE YOURSELF," << name << ", the 1st round has begun! \n(Press Enter to Continue.)";
     printBanner(enter_title);
     while (cin.get() != '\n') {}
 
@@ -235,6 +236,7 @@ int main()
             printDivider();
 
             // Prompt user
+            cout << (level - 1) << " ship(s) have reached Hyperspace, we can't stop now!\n\n";
             cout << "Your action: ";
             cin >> decisions;
             cout << endl;
@@ -476,7 +478,39 @@ int main()
     // Placeholder for game over screen
     cout << endl;
     printDivider();
-    cout << "\n\nYour health is now 0, you have been defeated.\n\n";
-    std::cout << "Game over, you completed " << (level - 2) << " levels.\n"; // level - 2 instead of - 1 because of how level is modified after each round 
+    
+    // Determine player ending
+    if ((level -1) == 0)
+    {
+        cout << "\nYou failed to protect any ships. No Gertrans survived the orbital onslaught. The misdeeds of the Emperor die with your planet.\n(Press Enter to Continue.)";
+        while (cin.get() != '\n') {}
+        
+        cout << endl;
+        printBanner(game_over);
+    }
+
+    else if ((level -1) >= 1 && (level - 1) < 5)
+    {
+        cout << "\nYou protected " << (level -1) << " ships! " << put_money(50000 * (level -1)) << " Gertrans survived the planetary onslaught.\nBut the guile of the Emperor is not to be underestimated, you did not save enough ships to make a difference.\n(Press Enter to Continue.)";  // put_money() from <iomanip> adds commas to large numbers 
+        while (cin.get() != '\n') {}
+
+        cout << "\n\nAfter the destruction of the planet, the Emperor's dreaded SHOCK TROOPERS hunted down and destroyed all " << (level -1) << " of the refugee vessels.\nOnly rumors remain of the Emperor's misdeeds on Gertra-376....\n";
+        printBanner(game_over);
+    }
+
+    else 
+    {
+        cout << "\nYou protected " << (level - 1) << " ships! " << put_money(50000 * (level - 1)) << " Gertrans survived the galactic bombardment.\n(Press Enter to Continue.)";
+        while (cin.get() != '\n') {}
+
+        cout << "\n\nNot only did you protect " << (level - 1) << " ships, but you saved so many refugees, that the Emperor could not stamp out the fires of rebellion stoked by his malice and greed.\nThe whole Galaxy knows what happened here today, the royal family of Gertra-376 embarks on a campaign to end the tyranny of the Galactic Empire\n(Press Enter to Continue.)";
+        while (cin.get() != '\n') {}
+
+        cout << "\n\nAfter 10 long zorpthons, a Gertran Emperor ascends to the throne. 5 more zorpthons pass, and an heir is produced. Born with bright eyes and great promise. \nThe Emperor bestows the baby with the name of hero. Their name?\n(Press Enter to Reveal the Baby's Name.)";
+        while (cin.get() != '\n') {}
+
+        printBanner(name);
+    }
+
     return 0;
 }
