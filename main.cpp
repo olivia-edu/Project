@@ -6,117 +6,51 @@
 using namespace std;
 
 // Used to format ASCII art
-void printCharacters(int num, char character) 
+void printCharacters(int num, char character)
 {
-  for (int i = 0; i < num; i++) {
-    cout << character;
-  }
+    for (int i = 0; i < num; i++) {
+        cout << character;
+    }
 }
 
 // Used to print ASCII art game title
-void gameTitle(const string& title, const string& subtitle) 
+void gameTitle(const string& title, const string& subtitle)
 {
-  // Game title variables 
-  int title_length = title.length();                                                              // gets title length
-  int subtitle_length = subtitle.length();                                                        // gets subtitle length
-  int line_width = 77;                                                                            // sets width of title line
-  int sub_line_width = subtitle_length +2;                                                        // sets width of subtitle
-  int title_left_padding = (line_width - title_length) / 2;                                       // maintains ASCII art by padding to the left of the title
-  int title_right_padding = line_width - title_left_padding - title_length;                       // maintains ASCII art by padding to the right of the title
-  int subtitle_left_padding = (sub_line_width - subtitle_length) / 2;                             // maintains ASCII art by padding to the left of the subtitle
-  int subtitle_right_padding = sub_line_width - subtitle_left_padding - subtitle_length;          // maintains ASCII art by padding the the right of the subtitle
-  
-  cout << "          0";
-  printCharacters(title_left_padding, ' ');
-  cout << title;
-  printCharacters(title_right_padding, ' ');
-  cout << "0";
-  cout << "\n         //";
-  printCharacters(line_width, ' ');
-  cout << "\\\\" << endl;
-  cout << "o[//////(@)::]======================> ";
-  printCharacters(subtitle_left_padding, ' ');
-  cout << subtitle;
-  printCharacters(subtitle_right_padding, ' ');
-  cout << " <======================[::(@)//////]o\n"; 
-  cout << "         \\\\";
-  printCharacters(line_width, ' ');
-  cout << "//" << endl;
-  cout << "          0";
-  printCharacters(line_width, ' ');
-  cout << "0" << endl;
-}
+    // Game title variables 
+    int title_length = title.length();                                                              // gets title length
+    int subtitle_length = subtitle.length();                                                        // gets subtitle length
+    int line_width = 77;                                                                            // sets width of title line
+    int sub_line_width = subtitle_length + 2;                                                        // sets width of subtitle
+    int title_left_padding = (line_width - title_length) / 2;                                       // maintains ASCII art by padding to the left of the title
+    int title_right_padding = line_width - title_left_padding - title_length;                       // maintains ASCII art by padding to the right of the title
+    int subtitle_left_padding = (sub_line_width - subtitle_length) / 2;                             // maintains ASCII art by padding to the left of the subtitle
+    int subtitle_right_padding = sub_line_width - subtitle_left_padding - subtitle_length;          // maintains ASCII art by padding the the right of the subtitle
 
-// Used to break up long text portions.
-void asciiSword(const string& title)
-{
-  int line_width = 20;
-  int title_length = title.length();                                                        // gets subtitle length
-  int title_left_padding = (line_width - title_length) / 2;                                       // maintains ASCII art by padding to the left of the title
-  int title_right_padding = line_width - title_left_padding - title_length;                       // maintains ASCII art by padding to the right of the title
-
-  cout << "\n\n          0";
-  printCharacters(80, ' ');
-  cout << "0";
-  
-  cout << "\n         //";
-  printCharacters(80, ' ');
-  cout << "\\\\" << endl;
-  
-  cout << "o[//////(@)::]======================> ";
-  printCharacters(title_left_padding, ' ');
-  cout << title;
-  printCharacters(title_right_padding, ' ');
-  cout << " <======================[::(@)//////]o\n"; 
-  
-  cout << "         \\\\";
-  printCharacters(80, ' ');
-  cout << "//" << endl;
-  
-  cout << "          0";
-  printCharacters(80, ' ');
-  cout << "0" << endl;
-}
-
-// Used to print ASCII art banner
-void printBanner(const string& sentence) 
-{
-  // Art banner variables
-  int padding = (65 - sentence.length()) / 2;                                                    // establishes padding to center sentence
-  
-  if (padding < 0) {
-    padding = 0;
-  }
-  
-  cout << "\n\n  ( ~ )";
-  printCharacters(64, ' ');
-  cout << "( ~ )" << endl;
-  cout << "  / /";
-  printCharacters(66, 'u');
-  cout << " / /" << endl;
-  cout << " ( (";
-  printCharacters(65, ' ');
-  cout << "  ( (" << endl;
-  cout << "  ) )";
-  printCharacters(padding, ' ');
-  cout << sentence;
-  printCharacters(padding, ' ');
-  cout << "  ) )" << endl;
-  cout << " ( (";
-  printCharacters(65, ' ');
-  cout << "  ( (" << endl;
-  cout << "  \\ \\";
-  printCharacters(66, 'n');
-  cout << " \\ \\" << endl;
-  cout << "  ( ~ )";
-  printCharacters(64, ' ');
-  cout << " ( ~ )" << endl;
+    cout << "          0";
+    printCharacters(title_left_padding, ' ');
+    cout << title;
+    printCharacters(title_right_padding, ' ');
+    cout << "0";
+    cout << "\n         //";
+    printCharacters(line_width, ' ');
+    cout << "\\\\" << endl;
+    cout << "o[//////(@)::]======================> ";
+    printCharacters(subtitle_left_padding, ' ');
+    cout << subtitle;
+    printCharacters(subtitle_right_padding, ' ');
+    cout << " <======================[::(@)//////]o\n";
+    cout << "         \\\\";
+    printCharacters(line_width, ' ');
+    cout << "//" << endl;
+    cout << "          0";
+    printCharacters(line_width, ' ');
+    cout << "0" << endl;
 }
 
 // Used to introduce the game and get the PC's name
 void Intro(const string& title, const string& subtitle, string& name)
 {
-  string enter_title = " Press Enter to Continue ";
+    string enter_title = " Press Enter to Continue ";
   
   cout << "The year is 28966. The Emperor has violated the galactic armistice.\n(Press Enter to Continue.)";
   while (cin.get() != '\n') {
@@ -175,6 +109,41 @@ void Intro(const string& title, const string& subtitle, string& name)
   }
 }
 
+// Used to print ASCII art banner
+void printBanner(const string& sentence)
+{
+    // Art banner variables
+    int padding = (65 - sentence.length()) / 2;                                                    // establishes padding to center sentence
+
+    if (padding < 0) {
+        padding = 0;
+    }
+
+  cout << "\n\n  ( ~ )";
+    printCharacters(64, ' ');
+    cout << "( ~ )" << endl;
+    cout << "  / /";
+    printCharacters(66, 'u');
+    cout << " / /" << endl;
+    cout << " ( (";
+    printCharacters(65, ' ');
+    cout << "  ( (" << endl;
+    cout << "  ) )";
+    printCharacters(padding, ' ');
+    cout << sentence;
+    printCharacters(padding, ' ');
+    cout << "  ) )" << endl;
+    cout << " ( (";
+    printCharacters(65, ' ');
+    cout << "  ( (" << endl;
+    cout << "  \\ \\";
+    printCharacters(66, 'n');
+    cout << " \\ \\" << endl;
+    cout << "  ( ~ )";
+    printCharacters(64, ' ');
+    cout << " ( ~ )" << endl;
+}
+
 // Used to seperate UI elements
 void printDivider(void)
 {
@@ -218,7 +187,7 @@ int main()
     
     cout << "\nYou search the bodies of your comrades for a functional weapon. YOU find a blaster cannon and 2 grenade(s). \n(Press Enter to Continue.)";
     while (cin.get() != '\n') {}
-    
+
     cout << "\nNONE of the ships have reached Hyperspace. YOU MUST HOLD OUT as LONG as YOU CAN!!\n(Press Enter to Continue.)";
     while (cin.get() != '\n') {}
     
@@ -226,7 +195,7 @@ int main()
     printBanner(enter_title);
     while (cin.get() != '\n') {}
 
-    
+
     // Divides opening and combat
     printDivider();
 
@@ -250,18 +219,19 @@ int main()
         int enemy_health = 70 + rand() % 45;                   // determines the enemies health for the start of the encounter (70 - 114)
         enemy_health += levelMod;                              // scale enemy health
         playerArmor = enemyArmor = 10;                         // set player and enemy armor values
-        cout << "LEVEL: " << level << "\t\t\t";
-        cout << "You encountered an enemy" << endl << endl;
- 
+        cout << (level - 1) << " ship(s) have reached Hyperspace, we can't stop now!\n\n";
+        cout << "Footsteps echo down the hallway,\n\n";
+        cout << "Round: " << level << "\n\n";
+
         // Start Turn
         do
         {
             // Display UI
             cout << "Enemy: " << setw(3) << right << enemy_health << " hp"
-                << setw(9) << right << "Armor: " << setw(2) << right << enemyArmor
-                << setw(16) << right << "Player: " << setw(3) << right << health << " hp"
-                << setw(9) << right << "Armor: " << setw(2) << right << playerArmor << endl << endl;
-            cout << "Choose 1 for light attack\tChoose 2 for heavy attack\n\nChoose 3 to heal\t\tChoose 4 to throw grenade " << grenadeCount << "/" << maxGrenades << "\n\nChoose any other number to rage quit lol\n\n";
+                 << setw(9) << right << "Armor: " << setw(2) << right << enemyArmor
+                 << setw(16) << right << "Player: " << setw(3) << right << health << " hp"
+                 << setw(9) << right << "Armor: " << setw(2) << right << playerArmor << endl << endl;
+            cout << "Choose 1 for light attack\tChoose 2 for heavy attack\n\nChoose 3 to heal\t\tChoose 4 to throw grenade " << grenadeCount << "/" << maxGrenades << "\n\nChoose any other number to surrender.\n\n";
             printDivider();
 
             // Prompt user
@@ -273,138 +243,139 @@ int main()
             switch (decisions)
             {
                 // Perform light attack
-                case 1:
+            case 1:
+            {
+                cout << "You have chosen light attack\n" << endl;
+                int chance1 = 1 + rand() % 10;                    // Get number between 1 and 10 inclusive 
+                if (chance1 <= 9)                                 // 90% chance to hit
                 {
-                    cout << "You have chosen light attack\n" << endl;
-                    int chance1 = 1 + rand() % 10;                    // Get number between 1 and 10 inclusive 
-                    if (chance1 <= 9)                                 // 90% chance to hit
+                    int l_att = 10 + rand() % 13;                 // Player damage output 10 - 22
+                    l_att += levelMod;                            // Scale damage
+                    finalDamage = l_att - enemyArmor;             // Apply Armor to calculation
+                    enemy_health -= finalDamage;                  // Subtract final damage from enemy health
+                    cout << "The attack was a success!  You dealt " << finalDamage << " damage.\n";
+                }
+                else
+                {
+                    cout << "Your attack missed.\n"; // 10% chance to miss
+                }
+                break;
+            }
+            // Perform heavy attack
+            case 2:
+            {
+                cout << "You have chosen heavy attack.\n";
+                int chance1 = rand() % 4;                   // Get number between 0 and 3
+                if (chance1 <= 1)                           // 50% chance to hit
+                {
+                    int h_att = 30 + rand() % 10;           // Player damage output 30 - 39
+                    h_att += levelMod * 2;                  // Scale damage, multiplied by 2 again for heavy scaling
+                    enemyArmor -= 5;                        // Reduce enemy armor
+                    finalDamage = h_att - enemyArmor;       // Apply Armor to calculation
+                    enemy_health -= finalDamage;
+                    cout << "The attack was a success!  You dealt " << finalDamage << " damage.\n";
+                    cout << "You also removed 5 armor.\n";
+                }
+                else
+                {
+                    cout << "Your attack missed.\n";
+                }
+                break;
+            }
+            // Heal player
+            case 3:
+            {
+                cout << "You have chosen to heal.\n";
+                if (health != 100)
+                {
+                    int chance1 = 1 + rand() % 2;  // Get number 1 or 2
+                    if (chance1 == 2)              // 50% chance
                     {
-                        int l_att = 10 + rand() % 13;                 // Player damage output 10 - 22
-                        l_att += levelMod;                            // Scale damage
-                        finalDamage = l_att - enemyArmor;             // Apply Armor to calculation
-                        enemy_health -= finalDamage;                  // Subtract final damage from enemy health
-                        cout << "The attack was a success!  You dealt " << finalDamage << " damage.\n";
+                        int heal = 15 + rand() % 5;  // Heal for 15 to 19
+                        health += heal;
+                        cout << "You healed " << heal << " health.\n";
+                        cout << "You have " << health << " hp left.\n";
                     }
                     else
                     {
-                        cout << "Your attack missed.\n"; // 10% chance to miss
+                        int heal = rand() % 14;  // Heal for 0 to 13
+                        health += heal;
+                        cout << "You healed " << heal << " health.\n";
+                        cout << "You have " << health << " hp left.\n";
                     }
-                    break;
                 }
-                // Perform heavy attack
-                case 2:
+                // Display if player is at full health
+                else
                 {
-                    cout << "You have chosen heavy attack.\n";
-                    int chance1 = rand() % 4;                   // Get number between 0 and 3
-                    if (chance1 <= 1)                           // 50% chance to hit
+                    cout << "You just wasted your turn, better luck next time.\n";
+                }
+
+                // Show player health after action
+                if (health > 100)
+                {
+                    health = 100;               // Update player health so never greater than 100
+                    cout << "\n\n\nYou have " << health << " left\n\n\n";
+                }
+                break;
+            }
+            // Throw grenade
+            case 4:
+            {
+                // Check player has available grenade
+                if (grenadeCount > 0)
+                {
+                    cout << "You have chosen throw grenade.\n";
+                    int chance1 = 1 + rand() % 10;                   // Get number between 1 and 10
+                    if (chance1 <= 8)                                // 80% chance to hit
                     {
-                        int h_att = 30 + rand() % 10;           // Player damage output 30 - 39
-                        h_att += levelMod * 2;                  // Scale damage, multiplied by 2 again for heavy scaling
-                        enemyArmor -= 5;                        // Reduce enemy armor
-                        finalDamage = h_att - enemyArmor;       // Apply Armor to calculation
-                        enemy_health -=  finalDamage;
+                        finalDamage = 60 + levelMod * 3;  // set damage and scaling high
+                        enemyArmor = 0;                   // remove enemy armor
+                        enemy_health -= finalDamage;
                         cout << "The attack was a success!  You dealt " << finalDamage << " damage.\n";
+                        grenadeCount -= 1;
                     }
+                    // 10% chance to blow yourself up
+                    else if (chance1 == 9)
+                    {
+                        finalDamage = 60 + levelMod * 3;  // set damage and scaling high
+                        playerArmor = 0;                  // remove player armor
+                        health -= finalDamage;
+                        cout << "Oops, the grenade slipped out of your hand. **BOOM!**\n";
+                        cout << "You have taken " << finalDamage << " self inflicted damage.\n";
+                        grenadeCount -= 1;
+
+                        // If player is dead, end battle
+                        if (deathCheck(health))
+                        {
+                            gameOver = true;
+                            break;
+                        }
+                        else
+                        {
+                            cout << "You now have " << health << " hp left.\n";
+                        }
+                    }
+                    // 10% chance to miss
                     else
                     {
                         cout << "Your attack missed.\n";
+                        grenadeCount -= 1;
                     }
-                    break;
                 }
-                // Heal player
-                case 3:
+                // Display if no grenades remaining
+                else
                 {
-                    cout << "You have chosen to heal.\n";
-                    if (health != 100)
-                    {
-                        int chance1 = 1 + rand() % 2;  // Get number 1 or 2
-                        if (chance1 == 2)              // 50% chance
-                        {
-                            int heal = 15 + rand() % 5;  // Heal for 15 to 19
-                            health += heal;
-                            cout << "You healed " << heal << " health.\n";
-                            cout << "You have " << health << " hp left.\n";
-                        }
-                        else
-                        {
-                            int heal = rand() % 14;  // Heal for 0 to 13
-                            health += heal;
-                            cout << "You healed " << heal << " health.\n";
-                            cout << "You have " << health << " hp left.\n";
-                        }
-                    }
-                    // Display if player is at full health
-                    else
-                    {
-                        cout << "You just wasted your turn, better luck next time.\n";
-                    }
-
-                    // Show player health after action
-                    if (health > 100) 
-                    {
-                        health = 100;               // Update player health so never greater than 100
-                        cout << "\n\n\nYou have " << health << " left\n\n\n";
-                    }
-                    break;
+                    cout << "Your search your equipment for grenades and none are found.\n" << "You have just wasted your turn.\n";
                 }
-                // Throw grenade
-                case 4:
-                {
-                    // Check player has available grenade
-                    if (grenadeCount > 0)
-                    {
-                        cout << "You have chosen throw grenade.\n";
-                        int chance1 = 1 + rand() % 10;                   // Get number between 1 and 10
-                        if (chance1 <= 8)                                // 80% chance to hit
-                        {
-                            finalDamage = 60 + levelMod * 3;  // set damage and scaling high
-                            enemyArmor = 0;                   // remove enemy armor
-                            enemy_health -= finalDamage;
-                            cout << "The attack was a success!  You dealt " << finalDamage << " damage.\n";
-                            grenadeCount -= 1;
-                        }
-                        // 10% chance to blow yourself up
-                        else if (chance1 == 9)
-                        {
-                            finalDamage = 60 + levelMod * 3;  // set damage and scaling high
-                            playerArmor = 0;                  // remove player armor
-                            health -= finalDamage;
-                            cout << "Oops, the grenade slipped out of your hand. **BOOM!**\n";
-                            cout << "You have taken " << finalDamage << " self inflicted damage.\n";
-                            grenadeCount -= 1;
+                break;
+            }
 
-                            // If player is dead, end battle
-                            if (deathCheck(health))
-                            {
-                                gameOver = true;
-                                break;
-                            }
-                            else
-                            {
-                                cout << "You now have " << health << " hp left.\n";
-                            }
-                        }
-                        // 10% chance to miss
-                        else
-                        {
-                            cout << "Your attack missed.\n";
-                            grenadeCount -= 1;
-                        }
-                    }
-                    // Display if no grenades remaining
-                    else
-                    {
-                        cout << "Your search your equipment for grenades and none are found.\n" << "You have just wasted your turn.\n";
-                    }
-                    break;
-                }
-
-                // Display if player enters a number besides 1, 2, or 3
-                default:
-                {
-                    cout << "Rage quitter lol, hope the game was worth it.\n\n";
-                    return 0;
-                }
+            // Display if player enters a number besides 1, 2, or 3
+            default:
+            {
+                cout << "You have surrendered to the enemy. You spend the rest of your days as a foot stool for the emperor\n\n";
+                return 0;
+            }
             }
             // If enemy is dead, end battle
             if (deathCheck(enemy_health))
@@ -424,52 +395,52 @@ int main()
             switch (enemy_turn)
             {
                 // Enemy light attack
-                case 1:
+            case 1:
+            {
+                int chance1 = rand() % 2;  // Get number 0 or 1
+                if (chance1 == 1)          // 50% chance to hit
                 {
-                    int chance1 = rand() % 2;  // Get number 0 or 1
-                    if (chance1 == 1)          // 50% chance to hit
-                    {
-                        int l_att = 10 + rand() % 13;                  // Enemy attack 10 - 22 damage
-                        l_att += levelMod;
-                        finalDamage = l_att - playerArmor;             // Apply Armor to calculation
-                        health -= finalDamage;
-                        cout << "The enemy attacked! They dealt " << finalDamage << " damage.\n";
+                    int l_att = 10 + rand() % 13;                  // Enemy attack 10 - 22 damage
+                    l_att += levelMod;
+                    finalDamage = l_att - playerArmor;             // Apply Armor to calculation
+                    health -= finalDamage;
+                    cout << "The enemy attacked! They dealt " << finalDamage << " damage.\n";
 
-                    }
-                    else
-                    {
-                        cout << "Their attack missed, it is now your turn.\n";
-                    }
-                    break;
                 }
-
-                // Enemy heavy attack
-                case 2:
+                else
                 {
-                    int chance1 = rand() % 4;     // Get number between 0 and 3
-                    if (chance1 == 0)             // Chance to hit is 25%
-                    {
-                        int h_att = 35 + rand() % 5;        // Enemy attack 35 - 39 damage
-                        h_att += levelMod * 2;              // Scale damage, times 2 for heavy scaling
-                        playerArmor -= 5;                   // Weaken player armor
-                        finalDamage = h_att - playerArmor;  // Apply Armor to calculation
-                        health -= finalDamage;
-                        cout << "They actually hit you with a heavy attack and dealt " << finalDamage << " damage.\n";
-                        cout << "They also removed 5 armor.\n";
-                    }
-                    else
-                    {
-                        cout << "The dumbass missed a heavy attack, lets show them how its done.\n";
-                    }
-                    break;
+                    cout << "Their attack missed, it is now your turn.\n";
                 }
+                break;
+            }
 
-                // Chance for enemy to waste turn
-                case 3:
+            // Enemy heavy attack
+            case 2:
+            {
+                int chance1 = rand() % 4;     // Get number between 0 and 3
+                if (chance1 == 0)             // Chance to hit is 25%
                 {
-                    cout << "The enemy is just standing there... menacingly!\n";
-                    break;
+                    int h_att = 35 + rand() % 5;        // Enemy attack 35 - 39 damage
+                    h_att += levelMod * 2;              // Scale damage, times 2 for heavy scaling
+                    playerArmor -= 5;                   // Weaken player armor
+                    finalDamage = h_att - playerArmor;  // Apply Armor to calculation
+                    health -= finalDamage;
+                    cout << "They actually hit you with a heavy attack and dealt " << finalDamage << " damage.\n";
+                    cout << "They also removed 5 armor.\n";
                 }
+                else
+                {
+                    cout << "The enemy missed a heavy attack, lets show them how its done.\n";
+                }
+                break;
+            }
+
+            // Chance for enemy to waste turn
+            case 3:
+            {
+                cout << "The enemy is just standing there... menacingly!\n";
+                break;
+            }
             }
             // If player is dead, end battle
             if (deathCheck(health))
@@ -499,12 +470,13 @@ int main()
         }
         else
         {
-            cout << "You hear the sound of footsteps approaching...\n" << "You don't have any time left to search for supplies. Get ready for battle\n\n";
+            cout << "You don't have any time left to search for supplies. Get ready for battle\n\n";
         }
     }
     // Placeholder for game over screen
     cout << endl;
     printDivider();
     cout << "\n\nYour health is now 0, you have been defeated.\n\n";
-    cout << "Game over, you completed " << level - 1 << " levels.\n";
+    std::cout << "Game over, you completed " << (level - 2) << " levels.\n"; // level - 2 instead of - 1 because of how level is modified after each round 
+    return 0;
 }
