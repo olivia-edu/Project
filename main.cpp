@@ -50,7 +50,7 @@ void gameTitle(const string& title, const string& subtitle)
 // Used to introduce the game and get the PC's name
 void Intro(const string& title, const string& subtitle, string& name)
 {
-    cout << "The year is 28966. The Emperor has violated the galactic armistice. His prized interstellar armada has surrounded Gertra-376 with the intention of eliminating all members of a rival familial bloodline, who’s existence threatens his reign. \n(Press Enter to Continue.)\n";
+    cout << "The year is 28966. The Emperor has violated the galactic armistice. His prized interstellar armada has surrounded Gertra-376 with the intention of eliminating all members of a rival family bloodline, whose existence threatens his reign. \n(Press Enter to Continue.)\n";
   while (cin.get() != '\n') {}
   
   gameTitle(title, subtitle);
@@ -64,13 +64,13 @@ void Intro(const string& title, const string& subtitle, string& name)
   cout << "\n" << name << ", Your adventure begins! \n(Press Enter to Continue.)" << endl;
   while (cin.get() != '\n') {}
 
-    cout << "\nPlasma cannons rain fire down upon the citizenry of Gertra-376. Explosions BOOM in the distance, their intensity increasing as the bombardment narrowns in on its primary target. A shockwave tears through the Planetary Defense bunker, accompanied by a blinding light.\n";
+    cout << "\nAn orbital lazer BLASTS down upon the citizenry of Gertra-376. Explosions BOOM in the distance, their intensity increasing as the bombardment narrows in on its primary target. A shockwave TEARS through the Planetary Defense Bunker, accompanied by a BLINDING light. \n(Press Enter to Continue.)";
     while (cin.get() != '\n') {}
 
-    cout << "\nYou are the highest ranking officer of Gertra-376's Planetary Defense Force left alive. You have stayed behind to protect the planet's shield generating systems. If the system's console is destroyed, evacuating ships will be torn apart before they can they can complete their jump into Hyperspace.\n";
+    cout << "\nYou are the highest ranking officer of Gertra-376's Planetary Defense Force left alive. You have stayed behind to protect the planet's shield generating systems. If the system's console is destroyed, evacuating ships will be torn apart before they can complete the jump into Hyperspace.\n(Press Enter to Continue.)";
     while (cin.get() != '\n') {}
 
-    cout << "\nSoon, the Emperor's Schock Troopers will decend upon your location. For every round of combat that you manage to survive, 1 ship of Gertran refugees will achieve Hyperspace and 50,000 lives will be saved. To complete a round of combat, defeat your enemy.\n";
+    cout << "\nSoon, the Emperor's SHOCK TROOPERS will decend upon your location. For every round of combat that you manage to survive, 1 ship of Gertran refugees will achieve Hyperspace and 50,000 lives will be saved. To complete a round of combat, defeat your enemy.\n(Press Enter to Continue.)";
     while (cin.get() != '\n') {}
 }
 
@@ -144,11 +144,11 @@ int main()
     Intro(working_title, working_subtitle, name);
 
     // Describe dungeon to user
-cout << "You dust yourself off and prepare for combat. The recent shockwave has disoriented and disarmed you. Clangs and shouts echo down the hallway. The Emperor's Shock Troppers have breached the first door of the Planetary Defence Bunker. \n(Press Enter to Continue.)";
+cout << "You dust yourself off and prepare for combat. The recent shockwave has disoriented and disarmed you. CLANGS and SHOUTS echo down the hallway. The Emperor's SHOCK TROOPERS have breached the first door of the Planetary Defence Bunker. \n(Press Enter to Continue.)";
 while (cin.get() != '\n') {}
-cout << "\nYou search the bodies of your compatriats for a functional weapon. You find a blaster cannon and 2 grenade(s). \n(Press Enter to Continue.)";
+cout << "\nYou search the bodies of your comrades for a functional weapon. You find a blaster cannon and 2 grenade(s). \n(Press Enter to Continue.)";
 while (cin.get() != '\n') {}
-cout << "\nNONE of the ships have reached Hyperspace. Hold out as long as you can!!!\nFootsteps echo down the hallway, the 1st round has begun! \n(Press Enter to Continue.)";
+cout << "\nNONE of the ships have reached Hyperspace. YOU MUST HOLD OUT as LONG as YOU CAN!!\nThe soft hum of a PROTON-BLASTER indicates your enemy's approach. Prepare yourself, the 1st round has begun! \n(Press Enter to Continue.)";
 while (cin.get() != '\n') {}
 
     // ASCII art for display
