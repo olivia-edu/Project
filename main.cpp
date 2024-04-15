@@ -189,7 +189,6 @@ bool deathCheck(int currentHealth)
 
 }
 
-using namespace std;
 
 int main()
 {
@@ -230,6 +229,10 @@ int main()
     int level = 1;                                         // used to store current player level
     int playerArmor, enemyArmor, finalDamage;              // used in calculation of damage values
 
+    // Used in case 4 Throw Grenade action
+    const int maxGrenades = 2;
+    int grenadeCount = maxGrenades;
+
     // Begin battle
     bool gameOver = false;                                 // used for outer while loop condition to end the game
     while (!gameOver)
@@ -246,7 +249,7 @@ int main()
         {
             // Prompt user for action
             cout << "\nEnemy: " << enemy_health << " hp    " << enemyArmor << " armor\tPlayer: " << health << " hp    " << playerArmor << " armor\n\n";
-            cout << "Choose 1 for light attack\tChoose 2 for heavy attack\n\nChoose 3 to heal\t\tChoose 4 to throw grenade\n\nChoose any other number to rage quit lol\n\n";
+            cout << "Choose 1 for light attack\tChoose 2 for heavy attack\n\nChoose 3 to heal\t\tChoose 4 to throw grenade " << grenadeCount << "/" << maxGrenades << "\n\nChoose any other number to rage quit lol\n\n";
             printDivider();
             cout << "Your action: ";
             cin >> decisions;
@@ -333,18 +336,51 @@ int main()
                 // Throw grenade
                 case 4:
                 {
-                    cout << "You have chosen throw grenade.\n";
-                    int chance1 = rand() % 4;                   // Get number between 0 and 3
-                    if (chance1 <= 1)                           // 50% chance to hit
+                    // Check player has available grenade
+                    if (grenadeCount > 0)
                     {
-                        finalDamage = 60 + levelMod * 3;  // set damage and scaling high
-                        enemyArmor = 0;                   // remove enemy armor
-                        enemy_health -= finalDamage;
-                        cout << "The attack was a success!  You dealt " << finalDamage << " damage.\n";
+                        cout << "You have chosen throw grenade.\n";
+                        int chance1 = 1 + rand() % 10;                   // Get number between 1 and 10
+                        if (chance1 <= 8)                                // 80% chance to hit
+                        {
+                            finalDamage = 60 + levelMod * 3;  // set damage and scaling high
+                            enemyArmor = 0;                   // remove enemy armor
+                            enemy_health -= finalDamage;
+                            cout << "The attack was a success!  You dealt " << finalDamage << " damage.\n";
+                            grenadeCount -= 1;
+                        }
+                        // 10% chance to blow yourself up
+                        else if (chance1 == 9)
+                        {
+                            finalDamage = 60 + levelMod * 3;  // set damage and scaling high
+                            playerArmor = 0;                  // remove player armor
+                            health -= finalDamage;
+                            cout << "Oops, the grenade slipped out of your hand. **BOOM!**\n";
+                            cout << "You have taken " << finalDamage << " self inflicted damage.\n";
+                            grenadeCount -= 1;
+
+                            // If player is dead, end battle
+                            if (deathCheck(health))
+                            {
+                                gameOver = true;
+                                break;
+                            }
+                            else
+                            {
+                                cout << "You now have " << health << " hp left.\n";
+                            }
+                        }
+                        // 10% chance to miss
+                        else
+                        {
+                            cout << "Your attack missed.\n";
+                            grenadeCount -= 1;
+                        }
                     }
+                    // Display if no grenades remaining
                     else
                     {
-                        cout << "You missed.\n";
+                        cout << "Your search your equipment for grenades and none are found.\n" << "You have just wasted your turn.\n";
                     }
                     break;
                 }
@@ -379,10 +415,11 @@ int main()
                     int chance1 = rand() % 2;  // Get number 0 or 1
                     if (chance1 == 1)          // 50% chance to hit
                     {
-                        int l_att = 7 + rand() % 13;    // Enemy attack 7 - 19 damage
+                        int l_att = 10 + rand() % 13;                  // Enemy attack 10 - 22 damage
                         l_att += levelMod;
-                        health -= l_att;
-                        cout << "The enemy attacked! They dealt " << l_att << " damage.\n";
+                        finalDamage = l_att - playerArmor;             // Apply Armor to calculation
+                        health -= finalDamage;
+                        cout << "The enemy attacked! They dealt " << finalDamage << " damage.\n";
 
                     }
                     else
@@ -398,10 +435,13 @@ int main()
                     int chance1 = rand() % 4;     // Get number between 0 and 3
                     if (chance1 == 0)             // Chance to hit is 25%
                     {
-                        int h_att = 35 + rand() % 5;    // Enemy attack 35 - 39 damage
-                        h_att += levelMod * 2;          // Scale damage, times 2 for heavy scaling
-                        health -= h_att;
-                        cout << "They actually hit you with a heavy attack and dealt " << h_att << " damage.\n";
+                        int h_att = 35 + rand() % 5;        // Enemy attack 35 - 39 damage
+                        h_att += levelMod * 2;              // Scale damage, times 2 for heavy scaling
+                        playerArmor -= 5;                   // Weaken player armor
+                        finalDamage = h_att - playerArmor;  // Apply Armor to calculation
+                        health -= finalDamage;
+                        cout << "They actually hit you with a heavy attack and dealt " << finalDamage << " damage.\n";
+                        cout << "They also removed 5 armor.\n";
                     }
                     else
                     {
@@ -430,6 +470,23 @@ int main()
         } while (health > 0 && enemy_health > 0);  // Continue until player or enemy health is negative or 0
 
         level++;                // increment level if enemy defeated, maybe add line resetting player health to 100
+
+        // 50% chance to find a grenade after battle, if grenadeCount is not at max value, and player is not defeated
+        chance1 = rand() % 2;
+        if (chance1 == 0 && grenadeCount < maxGrenades && !gameOver)
+        {
+            grenadeCount++;
+            cout << "You search the room for supplies. On a defeated enemy, you find 1 grenade\n\n";
+        }
+        // Exit battle if player is dead
+        else if (gameOver)
+        {
+            break;
+        }
+        else
+        {
+            cout << "You hear the sound of footsteps approaching...\n" << "You don't have any time left to search for supplies. Get ready for battle\n\n";
+        }
     }
     // Placeholder for game over screen
     cout << endl;
