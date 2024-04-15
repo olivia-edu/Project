@@ -47,31 +47,35 @@ void gameTitle(const string& title, const string& subtitle)
   cout << "0" << endl;
 }
 
-// Used to introduce the game and get the PC's name
-void Intro(const string& title, const string& subtitle, string& name)
+// Used to break up long text portions.
+void asciiSword(const string& title)
 {
-    cout << "The year is 28966. The Emperor has violated the galactic armistice. His prized interstellar armada has surrounded Gertra-376 with the intention of eliminating all members of a rival family bloodline, whose existence threatens his reign. \n(Press Enter to Continue.)\n";
-  while (cin.get() != '\n') {}
-  
-  gameTitle(title, subtitle);
-  
-  cout << "\nWelcome to (" << title<< "). Are you ready to play? \n(Press Enter to Continue.)"; 
-  while (cin.get() != '\n') {}
-  
-  cout << "\nPlease type the full name of your character. After typing your name, press enter to continue. \n\n"; 
-  getline(cin, name);
-  
-  cout << "\n" << name << ", Your adventure begins! \n(Press Enter to Continue.)" << endl;
-  while (cin.get() != '\n') {}
+  int line_width = 20;
+  int title_length = title.length();                                                        // gets subtitle length
+  int title_left_padding = (line_width - title_length) / 2;                                       // maintains ASCII art by padding to the left of the title
+  int title_right_padding = line_width - title_left_padding - title_length;                       // maintains ASCII art by padding to the right of the title
 
-    cout << "\nAn orbital lazer BLASTS down upon the citizenry of Gertra-376. Explosions BOOM in the distance, their intensity increasing as the bombardment narrows in on its primary target. A shockwave TEARS through the Planetary Defense Bunker, accompanied by a BLINDING light. \n(Press Enter to Continue.)";
-    while (cin.get() != '\n') {}
-
-    cout << "\nYou are the highest ranking officer of Gertra-376's Planetary Defense Force left alive. You have stayed behind to protect the planet's shield generating systems. If the system's console is destroyed, evacuating ships will be torn apart before they can complete the jump into Hyperspace.\n(Press Enter to Continue.)";
-    while (cin.get() != '\n') {}
-
-    cout << "\nSoon, the Emperor's SHOCK TROOPERS will decend upon your location. For every round of combat that you manage to survive, 1 ship of Gertran refugees will achieve Hyperspace and 50,000 lives will be saved. To complete a round of combat, defeat your enemy.\n(Press Enter to Continue.)";
-    while (cin.get() != '\n') {}
+  cout << "\n\n          0";
+  printCharacters(80, ' ');
+  cout << "0";
+  
+  cout << "\n         //";
+  printCharacters(80, ' ');
+  cout << "\\\\" << endl;
+  
+  cout << "o[//////(@)::]======================> ";
+  printCharacters(title_left_padding, ' ');
+  cout << title;
+  printCharacters(title_right_padding, ' ');
+  cout << " <======================[::(@)//////]o\n"; 
+  
+  cout << "         \\\\";
+  printCharacters(80, ' ');
+  cout << "//" << endl;
+  
+  cout << "          0";
+  printCharacters(80, ' ');
+  cout << "0" << endl;
 }
 
 // Used to print ASCII art banner
@@ -84,7 +88,7 @@ void printBanner(const string& sentence)
     padding = 0;
   }
   
-  cout << "\n  ( ~ )";
+  cout << "\n\n  ( ~ )";
   printCharacters(64, ' ');
   cout << "( ~ )" << endl;
   cout << "  / /";
@@ -107,6 +111,68 @@ void printBanner(const string& sentence)
   cout << "  ( ~ )";
   printCharacters(64, ' ');
   cout << " ( ~ )" << endl;
+}
+
+// Used to introduce the game and get the PC's name
+void Intro(const string& title, const string& subtitle, string& name)
+{
+  string enter_title = " Press Enter to Continue ";
+  
+  cout << "The year is 28966. The Emperor has violated the galactic armistice.\n(Press Enter to Continue.)";
+  while (cin.get() != '\n') {
+    cin.ignore();
+  }
+  
+  cout << "\nHis prized interstellar armada has surrounded Gertra-376 with the intention of eliminating all members of a rival family bloodline, whose existence threatens his reign.\n(Press Enter to Continue.)";
+  while (cin.get() != '\n') {
+    cin.ignore();
+  }  
+  gameTitle(title, subtitle);
+  
+  cout << "\nWelcome to (" << title<< "). Are you ready to play?\n(Press Enter to Continue.)"; 
+  while (cin.get() != '\n') {
+    cin.ignore();
+  }
+  
+  cout << "\nPlease type the full name of your character. After typing your name, press enter to continue. \n\n"; 
+  getline(cin, name);
+  
+  cout << "\n" << name << ", Your adventure begins!";  
+  printBanner(enter_title);
+  while (cin.get() != '\n') {
+    cin.ignore();
+  }
+  
+  cout << "\nAn orbital lazer BLASTS down upon the citizenry of Gertra-376. Explosions BOOM in the distance. They increase in both rate and decibal,\n as the bombardment narrows in on its primary target.\n(Press Enter to Continue.)";
+  while (cin.get() != '\n') {
+    cin.ignore();
+  } 
+  
+  cout << "\nA shockwave TEARS through the Planetary Defense Bunker, accompanied by a BLINDING light. \n(Press Enter to Continue.)";  
+  while (cin.get() != '\n') {
+    cin.ignore();
+  }
+
+  cout << "\nYou are the highest ranking officer of Gertra-376's Planetary Defense Force left alive. You have stayed behind to protect the planet's shield generating systems.\n(Press Enter to Continue.)";   
+  while (cin.get() != '\n') {
+    cin.ignore();
+  }
+  
+  cout << "\nIf the system's console is destroyed, evacuating ships will be torn apart before they can complete the jump into Hyperspace.\n(Press Enter to Continue.)";
+  while (cin.get() != '\n') {
+    cin.ignore();
+  }
+
+  cout << "\nSoon, the Emperor's SHOCK TROOPERS will decend upon your location. To complete a round of combat, defeat your enemy.\n(Press Enter to Continue.)";
+  while (cin.get() != '\n') {
+    cin.ignore();
+  }
+
+  cout << "\nFor every round of combat that you manage to survive, 1 ship of Gertran refugees will achieve Hyperspace and 50,000 lives will be saved.";
+  printBanner(enter_title);
+  while (cin.get() != '\n') {
+    cin.ignore();
+  }
 }
 
 // Used to seperate UI elements
@@ -135,24 +201,31 @@ int main()
     srand(time(nullptr)); // Seed the random number generator with the current time
 
     // Opening variables
-    string name, working_title, working_subtitle, variable_sentence;
+    string name, working_title, working_subtitle, enter_title;
+    enter_title = "(Press Enter to Continue)";
     working_title = "ZENO's DUNGEON:";
     working_subtitle = "A DICHOTOMY OF SOULS";
-    variable_sentence = "We can use this banner to stylistically inform PC of events.";
 
     // Opening function call
     Intro(working_title, working_subtitle, name);
 
     // Describe dungeon to user
-cout << "You dust yourself off and prepare for combat. The recent shockwave has disoriented and disarmed you. CLANGS and SHOUTS echo down the hallway. The Emperor's SHOCK TROOPERS have breached the first door of the Planetary Defence Bunker. \n(Press Enter to Continue.)";
-while (cin.get() != '\n') {}
-cout << "\nYou search the bodies of your comrades for a functional weapon. You find a blaster cannon and 2 grenade(s). \n(Press Enter to Continue.)";
-while (cin.get() != '\n') {}
-cout << "\nNONE of the ships have reached Hyperspace. YOU MUST HOLD OUT as LONG as YOU CAN!!\nThe soft hum of a PROTON-BLASTER indicates your enemy's approach. Prepare yourself, the 1st round has begun! \n(Press Enter to Continue.)";
-while (cin.get() != '\n') {}
+    cout << "\nThe recent shockwave has disoriented and disarmed You. You dust yourself off and prepare for combat. \n(Press Enter to Continue.)";
+    while (cin.get() != '\n') {}
+    
+    cout << "\nCLANGS and SHOUTS echo down the hallway. The Emperor's SHOCK TROOPERS have breached the first door of the Planetary Defence Bunker. \n(Press Enter to Continue.)";
+    while (cin.get() != '\n') {}
+    
+    cout << "\nYou search the bodies of your comrades for a functional weapon. YOU find a blaster cannon and 2 grenade(s). \n(Press Enter to Continue.)";
+    while (cin.get() != '\n') {}
+    
+    cout << "\nNONE of the ships have reached Hyperspace. YOU MUST HOLD OUT as LONG as YOU CAN!!\n(Press Enter to Continue.)";
+    while (cin.get() != '\n') {}
+    
+    cout << "\nThe soft hum of a PROTON-BLASTER indicates your enemy's approach. PREPARE YOURSELF, the 1st round has begun! \n(Press Enter to Continue.)";
+    printBanner(enter_title);
+    while (cin.get() != '\n') {}
 
-    // ASCII art for display
-    printBanner(variable_sentence);
     
     // Divides opening and combat
     printDivider();
