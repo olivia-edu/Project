@@ -144,12 +144,12 @@ int main()
     Intro(working_title, working_subtitle, name);
 
     // Describe dungeon to user
-    cout << "You dust yourself off and prepare for combat. The recent shockwave has disoriented and disarmed you. Clangs and shouts echo down the hallway. The Emperor's Shock Troppers have breached the first door of the Planetary Defence Bunker. \n(Press Enter to Continue.)";
-    while (cin.get() != '\n') {}
-    cout << "\nYou search the bodies of your compatriats for a functional weapon. You find a (gun name) and (quantity) grenade(s). \n(Press Enter to Continue.)";
-    while (cin.get() != '\n') {}
-    cout << "\nTEMP: (quantity =0) ships have reached Hyperspace. Your beloved pet rabbit, Pansy, is on ship (num ship randomly selected between 1-10). (Alternating phrase could be used here: We MUST keep her SAFE! / Pansy's ship has escaped, but we can't give up now! Keep the enemy occupies so they can't give chase!). INCLUDE: (Footsteps echo down the hallway, the xth round has begun! \n(Press Enter to Continue.)";
-    while (cin.get() != '\n') {}
+cout << "You dust yourself off and prepare for combat. The recent shockwave has disoriented and disarmed you. Clangs and shouts echo down the hallway. The Emperor's Shock Troppers have breached the first door of the Planetary Defence Bunker. \n(Press Enter to Continue.)";
+while (cin.get() != '\n') {}
+cout << "\nYou search the bodies of your compatriats for a functional weapon. You find a blaster cannon and 2 grenade(s). \n(Press Enter to Continue.)";
+while (cin.get() != '\n') {}
+cout << "\nNONE of the ships have reached Hyperspace. Hold out as long as you can!!!\nFootsteps echo down the hallway, the 1st round has begun! \n(Press Enter to Continue.)";
+while (cin.get() != '\n') {}
 
     // ASCII art for display
     printBanner(variable_sentence);
