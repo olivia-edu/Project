@@ -47,6 +47,41 @@ void gameTitle(const string& title, const string& subtitle)
     cout << "0" << endl;
 }
 
+// Used to print ASCII art banner
+void printBanner(const string& sentence)
+{
+    // Art banner variables
+    int padding = (65 - sentence.length()) / 2;                                                    // establishes padding to center sentence
+
+    if (padding < 0) {
+        padding = 0;
+    }
+
+  cout << "\n\n  ( ~ )";
+    printCharacters(64, ' ');
+    cout << "( ~ )" << endl;
+    cout << "  / /";
+    printCharacters(66, 'u');
+    cout << " / /" << endl;
+    cout << " ( (";
+    printCharacters(65, ' ');
+    cout << "  ( (" << endl;
+    cout << "  ) )";
+    printCharacters(padding, ' ');
+    cout << sentence;
+    printCharacters(padding, ' ');
+    cout << "  ) )" << endl;
+    cout << " ( (";
+    printCharacters(65, ' ');
+    cout << "  ( (" << endl;
+    cout << "  \\ \\";
+    printCharacters(66, 'n');
+    cout << " \\ \\" << endl;
+    cout << "  ( ~ )";
+    printCharacters(64, ' ');
+    cout << " ( ~ )" << endl;
+}
+
 // Used to introduce the game and get the PC's name
 void Intro(const string& title, const string& subtitle, string& name)
 {
@@ -109,41 +144,6 @@ void Intro(const string& title, const string& subtitle, string& name)
   }
 }
 
-// Used to print ASCII art banner
-void printBanner(const string& sentence)
-{
-    // Art banner variables
-    int padding = (65 - sentence.length()) / 2;                                                    // establishes padding to center sentence
-
-    if (padding < 0) {
-        padding = 0;
-    }
-
-  cout << "\n\n  ( ~ )";
-    printCharacters(64, ' ');
-    cout << "( ~ )" << endl;
-    cout << "  / /";
-    printCharacters(66, 'u');
-    cout << " / /" << endl;
-    cout << " ( (";
-    printCharacters(65, ' ');
-    cout << "  ( (" << endl;
-    cout << "  ) )";
-    printCharacters(padding, ' ');
-    cout << sentence;
-    printCharacters(padding, ' ');
-    cout << "  ) )" << endl;
-    cout << " ( (";
-    printCharacters(65, ' ');
-    cout << "  ( (" << endl;
-    cout << "  \\ \\";
-    printCharacters(66, 'n');
-    cout << " \\ \\" << endl;
-    cout << "  ( ~ )";
-    printCharacters(64, ' ');
-    cout << " ( ~ )" << endl;
-}
-
 // Used to seperate UI elements
 void printDivider(void)
 {
@@ -172,8 +172,8 @@ int main()
     // Opening variables
     string name, working_title, working_subtitle, enter_title;
     enter_title = "(Press Enter to Continue)";
-    working_title = "ZENO's DUNGEON:";
-    working_subtitle = "A DICHOTOMY OF SOULS";
+    working_title = "EMPEROR's FURY:";
+    working_subtitle = "DEFENDING GERTRA-376";
 
     // Opening function call
     Intro(working_title, working_subtitle, name);
