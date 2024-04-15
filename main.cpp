@@ -164,6 +164,24 @@ bool deathCheck(int currentHealth)
 
 }
 
+// Used to print commas for large numbers
+string numCommaFormat(int num)
+{
+    string comma_num; 
+    int counting_dig = 0;
+
+    do {
+        if ((counting_dig % 3 == 0) && (counting_dig !=0)) {
+            comma_num = "," + comma_num;
+        }
+            comma_num = to_string(num % 10) + comma_num;
+            num /= 10;
+            counting_dig++;
+        } while (num != 0);
+    
+     return comma_num;
+    
+    }
 
 int main()
 {
@@ -489,21 +507,21 @@ int main()
         printBanner(game_over);
     }
 
-    else if ((level -1) >= 1 && (level - 1) < 5)
+    else if ((level -2) >= 1 && (level - 2) < 4)
     {
-        cout << "\nYou protected " << (level -1) << " ships! " << put_money(50000 * (level -1)) << " Gertrans survived the planetary onslaught.\nBut the guile of the Emperor is not to be underestimated, you did not save enough ships to make a difference.\n(Press Enter to Continue.)";  // put_money() from <iomanip> adds commas to large numbers 
+        cout << "\nYou protected " << (level -2) << " ships! " << numCommaFormat((50000 * (level -2))) << " Gertrans survived the planetary onslaught.\nBut the guile of the Emperor is not to be underestimated, you did not save enough ships to make a difference.\n(Press Enter to Continue.)";  // put_money() from <iomanip> adds commas to large numbers 
         while (cin.get() != '\n') {}
 
-        cout << "\n\nAfter the destruction of the planet, the Emperor's dreaded SHOCK TROOPERS hunted down and destroyed all " << (level -1) << " of the refugee vessels.\nOnly rumors remain of the Emperor's misdeeds on Gertra-376....\n";
+        cout << "\n\nAfter the destruction of the planet, the Emperor's dreaded SHOCK TROOPERS hunted down and destroyed all " << (level -2) << " of the refugee vessels.\nOnly rumors remain of the Emperor's misdeeds on Gertra-376....\n";
         printBanner(game_over);
     }
 
     else 
     {
-        cout << "\nYou protected " << (level - 1) << " ships! " << put_money(50000 * (level - 1)) << " Gertrans survived the galactic bombardment.\n(Press Enter to Continue.)";
+        cout << "\nYou protected " << (level - 2) << " ships! " << numCommaFormat(50000 * (level - 2)) << " Gertrans survived the galactic bombardment.\n(Press Enter to Continue.)";
         while (cin.get() != '\n') {}
 
-        cout << "\n\nNot only did you protect " << (level - 1) << " ships, but you saved so many refugees, that the Emperor could not stamp out the fires of rebellion stoked by his malice and greed.\nThe whole Galaxy knows what happened here today, the royal family of Gertra-376 embarks on a campaign to end the tyranny of the Galactic Empire\n(Press Enter to Continue.)";
+        cout << "\n\nNot only did you protect " << (level - 2) << " ships, but you saved so many refugees, that the Emperor could not stamp out the fires of rebellion stoked by his malice and greed.\nThe whole Galaxy knows what happened here today, the royal family of Gertra-376 embarks on a campaign to end the tyranny of the Galactic Empire\n(Press Enter to Continue.)";
         while (cin.get() != '\n') {}
 
         cout << "\n\nAfter 10 long zorpthons, a Gertran Emperor ascends to the throne. 5 more zorpthons pass, and an heir is produced. Born with bright eyes and great promise. \nThe Emperor bestows the baby with the name of hero. Their name?\n(Press Enter to Reveal the Baby's Name.)";
