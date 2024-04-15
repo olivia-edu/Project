@@ -498,7 +498,7 @@ int main()
     printDivider();
     
     // Determine player ending
-   
+    cout << "You have fallen in battle.\n";
     if ((level -1) >= 1 && (level - 1) < 6)
     {
         cout << "\nYou protected " << (level -1) << " ships! " << numCommaFormat((50000 * (level -1))) << " Gertrans survived the planetary onslaught.\nBut the guile of the Emperor is not to be underestimated, you did not save enough ships to make a difference.\n(Press Enter to Continue.)";  // put_money() from <iomanip> adds commas to large numbers 
